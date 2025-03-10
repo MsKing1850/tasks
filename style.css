@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
-
 body {
   margin: 0;
   padding: 0;
@@ -11,13 +10,11 @@ body {
   color: #ffffff;
   font-family: 'Orbitron', sans-serif;
 }
-
 .container {
   text-align: center;
   width: 100%;
   max-width: 400px;
 }
-
 .clock {
   padding: 20px;
   border: 2px solid #1e90ff;
@@ -27,28 +24,21 @@ body {
   margin-bottom: 20px;
   animation: pulse 2s infinite alternate;
 }
-
 @keyframes pulse {
   from { box-shadow: 0 0 20px #1e90ff; }
   to { box-shadow: 0 0 30px #00ff00, 0 0 50px #1e90ff; }
 }
-
 .time {
   font-size: 3.5rem;
   color: #1e90ff;
   text-shadow: 0 0 15px #1e90ff;
   transition: transform 0.3s ease;
 }
-
-.time:hover {
-  transform: scale(1.05);
-}
-
+.time:hover { transform: scale(1.05); }
 .date {
   font-size: 1.5rem;
   color: #bbb;
 }
-
 .streak {
   margin-top: 20px;
   font-size: 1.5rem;
@@ -56,19 +46,16 @@ body {
   text-shadow: 0 0 12px #00ff00;
   animation: pulseStreak 2s infinite alternate;
 }
-
 @keyframes pulseStreak {
   from { transform: scale(1); }
   to { transform: scale(1.05); }
 }
-
 .toggle-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
   margin-bottom: 15px;
 }
-
 button {
   padding: 10px 20px;
   background-color: #1e90ff;
@@ -79,12 +66,10 @@ button {
   transition: background 0.3s, box-shadow 0.3s;
   box-shadow: 0 0 10px #1e90ff;
 }
-
 button:hover {
   background-color: #007bff;
   box-shadow: 0 0 20px #00ff00, 0 0 30px #1e90ff;
 }
-
 .section {
   transition: max-height 0.5s ease, opacity 0.5s ease, margin 0.5s ease;
   overflow: hidden;
@@ -92,32 +77,27 @@ button:hover {
   opacity: 0;
   margin: 0;
 }
-
 .section.show {
   max-height: 500px;
   opacity: 1;
   margin-bottom: 20px;
 }
-
 #taskSection {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid #1e90ff;
   border-radius: 10px;
   padding: 15px;
 }
-
 #taskSection h2 {
   margin-bottom: 15px;
   border-bottom: 2px solid #1e90ff;
   padding-bottom: 5px;
 }
-
 .input-group {
   display: flex;
   gap: 5px;
   margin-top: 10px;
 }
-
 input[type="text"] {
   width: 70%;
   padding: 10px;
@@ -127,7 +107,6 @@ input[type="text"] {
   color: #fff;
   outline: none;
 }
-
 #taskList li, #historyList li {
   background-color: #222;
   padding: 10px;
@@ -138,17 +117,14 @@ input[type="text"] {
   align-items: center;
   color: #fff;
 }
-
 #taskList li.completed {
   text-decoration: line-through;
   color: #888;
 }
-
 .tick {
   color: #00ff00;
   margin-left: 10px;
 }
-
 .clear-history {
   margin-top: 10px;
   padding: 8px 16px;
@@ -160,8 +136,42 @@ input[type="text"] {
   transition: background 0.3s, box-shadow 0.3s;
   box-shadow: 0 0 10px #ff4444;
 }
-
 .clear-history:hover {
   background-color: #cc0000;
   box-shadow: 0 0 20px #ff4444;
+}
+
+/* Responsive for Mobile */
+@media (max-width: 480px) {
+  .container {
+    max-width: 95%;
+  }
+  .time {
+    font-size: 2.5rem;
+  }
+  .date {
+    font-size: 1.2rem;
+  }
+  .streak {
+    font-size: 1.2rem;
+    margin-top: 15px;
+  }
+  .toggle-buttons {
+    flex-direction: column;
+    gap: 5px;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
+  #taskSection h2, #historySection h2 {
+    font-size: 1.1rem;
+  }
+  .input-group {
+    flex-direction: column;
+  }
+  input[type="text"] {
+    width: 100%;
+    margin-bottom: 5px;
+  }
 }

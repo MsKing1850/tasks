@@ -10,13 +10,11 @@ updateClock();
 
 let streak = localStorage.getItem('streak') ? parseInt(localStorage.getItem('streak')) : 0;
 let history = JSON.parse(localStorage.getItem('history')) || [];
-
 let defaultTasks = [
   { text: 'Wake up', done: false },
   { text: 'Exercise', done: false },
   { text: 'Drink Water', done: false }
 ];
-
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 function loadTasks() {
@@ -120,11 +118,11 @@ function toggleHistory() {
 
 function askNotificationPermission() {
   if ('Notification' in window) {
-    Notification.requestPermission().then(permission => {
-      if (permission === 'granted') {
-        scheduleDailyReminder();
-      }
-    });
+    if (Notification.permission === 'default') {
+      Notification.requestPermission().then(permission => {
+        console.log("Notification permission:", permission);
+      });
+    }
   }
 }
 
@@ -165,8 +163,29 @@ function scheduleCompletionNotification() {
   }, timeUntilEndOfDay);
 }
 
-document.getElementById('streakCount').textContent = streak;
+function scheduleTrialNotification() {
+  const now = new Date();
+  const trialTime = new Date();
+  trialTime.setHours(12, 15, 0, 0);
+  let timeUntilTrial = trialTime - now;
+  if (timeUntilTrial < 0) {
+    timeUntilTrial += 24 * 60 * 60 * 1000;
+  }
+  setTimeout(() => {
+    new Notification('Trial Notification', {
+      body: "This is your trial notification at 12:15!",
+      icon: 'https://cdn-icons-png.flaticon.com/512/25/25345.png'
+    });
+    scheduleTrialNotification();
+  }, timeUntilTrial);
+}
+
+window.addEventListener('load', () => {
+  askNotificationPermission();
+  scheduleDailyReminder();
+  scheduleTrialNotification();
+});
+
 loadTasks();
 loadHistory();
 updateStreak();
-askNotificationPermission();
