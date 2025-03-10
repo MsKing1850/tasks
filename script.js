@@ -117,12 +117,10 @@ function toggleHistory() {
 }
 
 function askNotificationPermission() {
-  if ('Notification' in window) {
-    if (Notification.permission === 'default') {
-      Notification.requestPermission().then(permission => {
-        console.log("Notification permission:", permission);
-      });
-    }
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission().then(permission => {
+      console.log("Notification permission:", permission);
+    });
   }
 }
 
@@ -153,7 +151,7 @@ function sendReminderNotification() {
 function scheduleCompletionNotification() {
   const now = new Date();
   const endOfDay = new Date();
-  endOfDay.setHours(23, 59, 59, 999);
+  endOfDay.setHours(23, 59, 0, 0);
   const timeUntilEndOfDay = endOfDay - now;
   setTimeout(() => {
     new Notification('Congratulations!', {
@@ -163,27 +161,9 @@ function scheduleCompletionNotification() {
   }, timeUntilEndOfDay);
 }
 
-function scheduleTrialNotification() {
-  const now = new Date();
-  const trialTime = new Date();
-  trialTime.setHours(12, 15, 0, 0);
-  let timeUntilTrial = trialTime - now;
-  if (timeUntilTrial < 0) {
-    timeUntilTrial += 24 * 60 * 60 * 1000;
-  }
-  setTimeout(() => {
-    new Notification('Trial Notification', {
-      body: "This is your trial notification at 12:15!",
-      icon: 'https://cdn-icons-png.flaticon.com/512/25/25345.png'
-    });
-    scheduleTrialNotification();
-  }, timeUntilTrial);
-}
-
 window.addEventListener('load', () => {
   askNotificationPermission();
   scheduleDailyReminder();
-  scheduleTrialNotification();
 });
 
 loadTasks();
